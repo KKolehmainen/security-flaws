@@ -1,0 +1,13 @@
+<html>
+    <body>
+        {% if latest_notes %}
+            <ul>
+                {% for note in latest_notes %}
+                <li>{{ note.title }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No notes available</p>
+        {% endif %}
+    </body>
+</html>
