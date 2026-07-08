@@ -5,3 +5,6 @@ class Note(models.Model):
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=1000)
     pub_date = models.DateTimeField("date published")
+
+    def __str__(self):
+        return self.title + "\n" + self.content
