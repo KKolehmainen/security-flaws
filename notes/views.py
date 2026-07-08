@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 
 from .models import Note
 # Create your views here.
@@ -12,8 +11,5 @@ def index(request):
     return render(request, "notes/index.html", context)
 
 def noteView(request, note_id):
-    try:
-        note = Note.objects.get(pk=note_id)
-    except Note.DoesNotExist:
-        raise Http404("Note doest not exist")
+    note = get_object_or_404(Note, pk=note_id)
     return render(request, "notes/note.html", {"note": note})
