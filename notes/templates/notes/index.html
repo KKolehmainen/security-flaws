@@ -6,9 +6,10 @@
                 <a href="logout/">Logout</a>
             </p>
             {% if latest_notes %}
+                <p>Latest notes:</p>
                 <ul>
                     {% for note in latest_notes %}
-                    <li>{{ note.title }}</li>
+                    <li><a href="/notes/{{ note.id }}">{{ note.title }}</a></li>
                     {% endfor %}
                 </ul>
             {% else %}

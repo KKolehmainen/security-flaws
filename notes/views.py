@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 
@@ -8,14 +9,18 @@ from .models import Note
 # Create your views here.
 
 def index(request):
-    latest_notes = Note.objects.order_by("-pub_date")[:5]
+    if request.user.is_authenticated:
+        latest_notes = Note.objects.filter(owner=request.user).order_by("-pub_date")[:5]
+    else:
+        latest_notes = None
     context = {
         "latest_notes": latest_notes
     }
     return render(request, "notes/index.html", context)
 
+@login_required
 def noteView(request, note_id):
-    note = get_object_or_404(Note, pk=note_id)
+    note = get_object_or_404(Note, pk=note_id, owner=request.user)
     return render(request, "notes/note.html", {"note": note})
 
 @csrf_exempt
