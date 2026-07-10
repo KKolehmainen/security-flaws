@@ -65,3 +65,26 @@ def registerView(request):
     if request.method == "GET":
         return render(request, "notes/register.html")
     
+def search_notes(query, user_id):
+    """This is a dangerous function allowing SQL injections."""
+    import sqlite3
+    sql = f"SELECT id, title FROM notes_note WHERE title LIKE '%{query}%' AND owner_id={user_id}"
+    con = sqlite3.connect("db.sqlite3")
+    con.row_factory = sqlite3.Row
+    result = con.execute(sql).fetchall()
+    con.close()
+    return result
+
+
+@login_required
+def searchView(request):
+    query = request.GET.get("query")
+
+    # Dangerous:
+    results = search_notes(query, request.user.id) if query else []
+
+    # Safe:
+    #results = Note.objects.filter(owner=request.user, title__icontains=query) if query else []
+
+    return render(request, "notes/search.html", {"results": results, "query": query})
+    

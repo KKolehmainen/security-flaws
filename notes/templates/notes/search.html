@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <h1>Search</h1>
+
+        <form action="/notes/search" method="get">
+            <p>
+                Search query:
+                {% if query %}
+                <input type="text" name="query" value="{{ query }}" />
+                {% else %}
+                <input type="text" name="query" />
+                {% endif %}
+            </p>
+            <input type="submit" value="Search" />
+        </form>
+
+        {% if query %}
+            <hr />
+            <h2>Search results</h2>
+            
+            <ul>
+            {% for result in results %}
+                <li>
+                <a href="/notes/{{ result.id }}">
+                    {{ result.title }}
+                </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </body>
+</html>
