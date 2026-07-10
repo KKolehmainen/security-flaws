@@ -1,0 +1,21 @@
+<html>
+    <head>Create a new note</head>
+
+    {% if user.is_authenticated %}
+    <form action="/notes/create_note/" method="post">
+        {% csrf_token %}
+        <p>
+            Note title:
+            <input type="text" name="title" maxlength="100" required/>
+        </p>
+        <p>
+            Note content:
+            <textarea name="content" rows="5" cols="40" maxlength="10000" required></textarea>
+        </p>
+        <input type="submit" value="Submit" />
+    </form>
+    <p>
+        <a href="/notes/">Frontpage</a>
+    </p>
+    {% endif %}
+</html>

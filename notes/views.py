@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 
 from .models import Note
 # Create your views here.
@@ -22,6 +23,24 @@ def index(request):
 def noteView(request, note_id):
     note = get_object_or_404(Note, pk=note_id, owner=request.user)
     return render(request, "notes/note.html", {"note": note})
+
+def create_noteView(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        content = request.POST["content"]
+        pub_date = timezone.now()
+
+        new_note = Note.objects.create(
+            title=title,
+            content=content,
+            pub_date=pub_date,
+            owner=request.user,
+        )
+        new_note.save()
+        return redirect("/notes/")
+    
+    if request.method == "GET":
+        return render(request, "notes/create_note.html")
 
 @csrf_exempt
 def loginView(request):
