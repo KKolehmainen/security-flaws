@@ -1,14 +1,26 @@
 <html>
     <body>
-        <a href="register/">Register</a>
-        {% if latest_notes %}
-            <ul>
-                {% for note in latest_notes %}
-                <li>{{ note.title }}</li>
-                {% endfor %}
-            </ul>
+        {% if user.is_authenticated %}
+            <p>Logged in as {{ user.username }}</p>
+            <p>
+                <a href="logout/">Logout</a>
+            </p>
+            {% if latest_notes %}
+                <ul>
+                    {% for note in latest_notes %}
+                    <li>{{ note.title }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No notes available</p>
+            {% endif %}
         {% else %}
-            <p>No notes available</p>
+            <p>
+                <a href="login/">Login</a>
+            </p>
+            <p>
+                <a href="register/">Register</a>
+            </p>
         {% endif %}
     </body>
 </html>

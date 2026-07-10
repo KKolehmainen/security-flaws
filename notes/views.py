@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 
@@ -16,6 +17,26 @@ def index(request):
 def noteView(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
     return render(request, "notes/note.html", {"note": note})
+
+@csrf_exempt
+def loginView(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("/notes/")
+        else:
+            messages.error(request, "Wrong username or password")
+            return redirect("/notes/login/")
+        
+    if request.method == "GET":
+        return render(request, "notes/login.html")
+    
+def logoutView(request):
+    logout(request)
+    return redirect("/notes/")
 
 @csrf_exempt
 def registerView(request):
