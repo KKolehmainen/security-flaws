@@ -6,6 +6,10 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 
+# FLAW 4: Use outdated package with dangerous components
+from .db_v1 import search_notes, search_notes_safe
+#from .db_v2 import search_notes
+
 from .models import Note
 # Create your views here.
 
@@ -21,7 +25,10 @@ def index(request):
 
 @login_required
 def noteView(request, note_id):
-    note = get_object_or_404(Note, pk=note_id, owner=request.user)
+
+    # FLAW 3: Not checking for note owner 
+    note = get_object_or_404(Note, pk=note_id)
+    #note = get_object_or_404(Note, pk=note_id, owner=request.user)
     return render(request, "notes/note.html", {"note": note})
 
 def create_noteView(request):
@@ -84,15 +91,7 @@ def registerView(request):
     if request.method == "GET":
         return render(request, "notes/register.html")
     
-def search_notes(query, user_id):
-    """This is a dangerous function allowing SQL injections."""
-    import sqlite3
-    sql = f"SELECT id, title FROM notes_note WHERE title LIKE '%{query}%' AND owner_id={user_id}"
-    con = sqlite3.connect("db.sqlite3")
-    con.row_factory = sqlite3.Row
-    result = con.execute(sql).fetchall()
-    con.close()
-    return result
+
 
 
 @login_required
@@ -103,7 +102,7 @@ def searchView(request):
     results = search_notes(query, request.user.id) if query else []
 
     # Safe:
-    #results = Note.objects.filter(owner=request.user, title__icontains=query) if query else []
+    #results = search_notes_safe(query, request.user)
 
     return render(request, "notes/search.html", {"results": results, "query": query})
     
