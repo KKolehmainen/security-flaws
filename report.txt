@@ -1,0 +1,18 @@
+LINK: https://github.com/KKolehmainen/security-flaws
+
+FLAW 1: SQL injection (OWASP 2021 #4)
+- Allow SQL injections by raw SQL command use
+
+FLAW 2: CSRF (not in OWASP 2021)
+- Not using a CSRF token to prevent cross site forgery
+
+FLAW 3: Broken Access Control (OWASP 2021 #1)
+- Allow a user not logged in to 
+
+FLAW 4: Vulnerable and Outdated Components (OWASP 2021 #6)
+- Using an old version of a package that contains a vulnerability
+
+FLAW 5: Security Misconfiguration (OWASP 2021 #5)
+- Use DEBUG = True in production
+- Server errors may give away secure information (installed package versions, source code, filesystem info, ...)
+    - Other vulnerabilities may be found through misconfiguration
