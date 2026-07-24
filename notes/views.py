@@ -8,6 +8,8 @@ from django.utils import timezone
 
 # FLAW 4: Use outdated package with dangerous components
 from .db_v1 import search_notes, search_notes_safe
+
+# Fix for FLAW 4:
 #from .db_v2 import search_notes
 
 from .models import Note
@@ -28,7 +30,10 @@ def noteView(request, note_id):
 
     # FLAW 3: Not checking for note owner 
     note = get_object_or_404(Note, pk=note_id)
+
+    # Fix for FLAW 3: 
     #note = get_object_or_404(Note, pk=note_id, owner=request.user)
+
     return render(request, "notes/note.html", {"note": note})
 
 def create_noteView(request):
@@ -103,10 +108,10 @@ def registerView(request):
 def searchView(request):
     query = request.GET.get("query")
 
-    # Dangerous:
+    # FLAW 1: Allow SQL injection, see db module for full function
     results = search_notes(query, request.user.id) if query else []
 
-    # Safe:
+    # Fix for FLAW 1:
     #results = search_notes_safe(query, request.user)
 
     return render(request, "notes/search.html", {"results": results, "query": query})
