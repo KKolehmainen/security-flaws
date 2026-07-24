@@ -79,6 +79,11 @@ def registerView(request):
         if password1 != password2:
             messages.error(request, "Passwords do not match")
             return redirect("/notes/register")
+
+        # Fix for FLAW 5:
+        #if len(password1) < 1:
+        #    messages.error(request, "Password too short")
+        #    return redirect("/notes/register")
         
         if User.objects.filter(username=username).exists():
             messages.error(request, "The username already exists")
