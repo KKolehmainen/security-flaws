@@ -13,7 +13,7 @@ from .db_v1 import search_notes, search_notes_safe
 #from .db_v2 import search_notes
 
 from .models import Note
-# Create your views here.
+
 
 def index(request):
     if request.user.is_authenticated:
@@ -100,9 +100,6 @@ def registerView(request):
     
     if request.method == "GET":
         return render(request, "notes/register.html")
-    
-
-
 
 @login_required
 def searchView(request):
