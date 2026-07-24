@@ -1,6 +1,7 @@
 <html>
     <body>
         <form action="/notes/register/" method="post">
+            {% csrf_token %}
             <p>Username:</p>
             <input type="text" name="username">
             <p>Password:</p>

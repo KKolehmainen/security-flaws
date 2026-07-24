@@ -36,6 +36,8 @@ def noteView(request, note_id):
 
     return render(request, "notes/note.html", {"note": note})
 
+# FLAW 2: Allow CSRF, comment decorator to fix
+@csrf_exempt
 def create_noteView(request):
     if request.method == "POST":
         title = request.POST["title"]
@@ -54,7 +56,6 @@ def create_noteView(request):
     if request.method == "GET":
         return render(request, "notes/create_note.html")
 
-@csrf_exempt
 def loginView(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -74,7 +75,6 @@ def logoutView(request):
     logout(request)
     return redirect("/notes/")
 
-@csrf_exempt
 def registerView(request):
     if request.method == "POST":
         username = request.POST["username"]

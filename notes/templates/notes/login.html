@@ -2,6 +2,7 @@
     <body>
         <h1>Login</h1>
         <form action="/notes/login/" method="post">
+            {% csrf_token %}
             <p>Username:</p>
             <input type="text" name="username">
             <p>Password:</p>
