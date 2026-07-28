@@ -3,6 +3,7 @@
 
     {% if user.is_authenticated %}
     <form action="/notes/create_note/" method="post">
+        <!-- {% csrf_token %} -->
         <p>
             Note title:
             <input type="text" name="title" maxlength="100" required/>
