@@ -62,4 +62,4 @@ The app repository also contains a separate python program csrf_attack.py that c
 
 Open the provided link in the browser, login to a user in the Notes app and click the button on the CSRF page. You may need to change the port in the file if the default port is unavailable. After a succesful demonstration, you should see a new note in the Notes app that was added by the CSRF attack.
 
-If the demonstration fails with `Server error 5000`, you need to make sure the addresses used are not mixed within the Notes app and the CSRF code. Avoid using `localhost` and prefer `127.0.0.1` to make it work with the default CSRF code.
+If the demonstration fails with `Server error 500`, you need to make sure the addresses used are not mixed within the Notes app and the CSRF code. Avoid using `localhost` and prefer `127.0.0.1` to make it work with the default CSRF code.
