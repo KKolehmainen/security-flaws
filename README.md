@@ -60,4 +60,4 @@ The app repository also contains a separate python program csrf_attack.py that c
 
 `$ python csrf_attack.py`
 
-Open the provided link in the browser, login to a user in the Notes app and click the button on the CSRF page. You should see a new note in the Notes app that was added by the CSRF attack.
+Open the provided link in the browser, login to a user in the Notes app and click the button on the CSRF page. You may need to change the port in the file if the default port is unavailable. After a succesful demonstration, you should see a new note in the Notes app that was added by the CSRF attack.
