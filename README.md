@@ -53,7 +53,7 @@ The flaws can be easily demonstrated using the two users initialized in the data
 | alice | redqueen|
 | bob | squarepants |
 
-Screenshots demonstrating the flaws are included in `screenshots/`. Detailed explanations of the flaws and their fixes are provided in the PDF.
+Screenshots demonstrating the flaws are included in `screenshots/`. Detailed explanations of the flaws and their fixes are provided in `flaw_descriptions.pdf`.
 
 ### CSRF attack
 The app repository also contains a separate python program csrf_attack.py that can be used to demonstrate the CSRF attack. To perform the demonstration, first run the Notes app and then run the CSRF program by
