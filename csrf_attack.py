@@ -17,7 +17,7 @@ class Handler(BaseHTTPRequestHandler):
         """
         self.wfile.write(html.encode())
 
-
-server = HTTPServer(("localhost", 9000), Handler)
-print("Running on http://localhost:9000")
+port = 9000
+server = HTTPServer(("127.0.0.1", port), Handler)
+print(f"Running on http://127.0.0.1:{port}")
 server.serve_forever()
