@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-from .db_v1 import search_notes, search_notes_safe
+from .db import search_notes, search_notes_safe
 
 from .models import Note
 
