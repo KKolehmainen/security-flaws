@@ -5,12 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-
-# FLAW 4: Use outdated package with dangerous components
 from .db_v1 import search_notes, search_notes_safe
-
-# Fix for FLAW 4:
-#from .db_v2 import search_notes
 
 from .models import Note
 
