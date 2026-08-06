@@ -103,7 +103,6 @@ def registerView(request):
 
         # Fix for FLAW 4:
         #user = User.objects.create_user(username, password=password1)
-        #user.save()
         return redirect("/notes/")
     
     if request.method == "GET":
