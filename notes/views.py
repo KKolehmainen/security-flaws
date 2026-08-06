@@ -55,7 +55,16 @@ def loginView(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
+
+        # FLAW 4: Check passwords without hashing
+        user = User.objects.get(username=username)
+        if user.password != password:
+            messages.error(request, "Wrong username or password")
+            return redirect("/notes/login/")
+
+        # Fix for FLAW 4:
+        #user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
             return redirect("/notes/")
@@ -89,8 +98,12 @@ def registerView(request):
             messages.error(request, "The username already exists")
             return redirect("/notes/register")
 
-        user = User.objects.create_user(username, password=password1)
-        user.save()
+        # FLAW 4: Store passwords without hashing
+        user = User.objects.create(username=username, password=password1)
+
+        # Fix for FLAW 4:
+        #user = User.objects.create_user(username, password=password1)
+        #user.save()
         return redirect("/notes/")
     
     if request.method == "GET":
